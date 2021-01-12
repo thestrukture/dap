@@ -1,0 +1,16 @@
+<div class="ui form" style="margin-top:10px;">
+    <div class="grouped fields">
+        <label>{{.Text}}</label>
+        {{$qIndex := .Index}}
+        {{range .Choices}}
+            <div class="field">
+                <div class="ui slider checkbox">
+                    <input type="radio" name="{{$qIndex}}" value="{{.Index}}">
+                    <label>{{.Text}}</label>
+                </div>
+            </div>
+        {{end}}
+        
+
+    </div>
+</div>

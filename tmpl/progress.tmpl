@@ -1,0 +1,7 @@
+<div style="margin:45px;">
+    <div class="ui indicating progress" data-percent='{{.Score}}'>
+        <div class="bar" style="width: {{.Score}}%%"></div>
+        <div class="label" style="text-align: right;">{{printf "%.1f" .Score}} %% {{.Text}}</div>
+    </div>
+    <hr>
+</div>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>DAP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css" integrity="sha512-8Tb+T7SKUFQWOPIQCaLDWWe1K/SY8hvHl7brOH8Nz5z1VT8fnf8B+9neoUzmFY3OzkWMMs3OjrwZALgB1oXFBg==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/grid.min.css" integrity="sha512-RtktBL0Hhw9K2e2rGLZGadK8cF6Q0wKxRUkfh4pJszwnarmh3GbqHCiLm3UZFA1dRiFqtPkVrcby0hXWsqoDNA==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css" integrity="sha512-BIyIsOFJCQKKhxrCMtXBi1RJTXmV1vuMEWCRbU/UFieuYyvGAbl03GktViTWKM39yu9Jywbec1V0cRbQ6KgMVQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/divider.min.css" integrity="sha512-UfIon3gqrWjI1KDj6T2BmFN2vdmsr4dyUBFUxTVLPYHEeWIoNvH0JzZ4EHBa4CWoNhdcyYIpR2Kri7Ys835rrQ==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.css" integrity="sha512-binQUn0abXktVdo5lUPzJyj9ZRouAxqFlchlD22+y2IAivfojjNLPuC6HCZiHT5bx+cM7ZzJstL+jHhwOUtcyg==" crossorigin="anonymous" />
+</head>
+
+<body>
+    <div class="root" style="margin:50px;">
+        <div class="container">
+            <h1 class="ui center aligned icon header">
+                <i class="circular users icon"></i>
+                D.A.P
+            </h1>
+            <form action="/submit">
+                <div style="width:100%%;" class="ui styled accordion">
+                    {{ $groups := GetGroups }}
+
+                    {{ range $groups }}
+                        {{ bhGroup . }}
+                    {{ end}}
+                </div>
+                <div class="ui horizontal divider">
+                </div>
+                <button class="ui right primary labeled icon button">
+                    Submit
+                    <i class="right arrow icon"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    <label>Built With GopherSauce</label>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.js" integrity="sha512-zy/iMxvOAQO5VsB1/enNUXKWxoSBFAyjXwwwIU+sMYf2+iOnqoW2EokpAnnTwue6/Kcv3w7qyALGbppj3mOVgA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/checkbox.min.js" integrity="sha512-xHPfIQ31nhgadqKFR79QIE1P+8QkEJRKYhbO+tNThUtBU1sOC55A29sLgjFxyekM7DUVJqapmIOx0J+G2VH8RQ==" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+    $('.ui.accordion')
+        .accordion();
+    </script>
+</body>
+
+</html>

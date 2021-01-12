@@ -1,0 +1,13 @@
+<div class="title">
+    <i class="dropdown icon"></i>
+    {{.Text}}
+</div>
+<div class="content">
+    {{.Resume}}
+
+    {{range .Questions}}
+        {{bhQuestion .}}
+    {{end}}
+
+
+</div>

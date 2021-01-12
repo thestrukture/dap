@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gos>
+	<!-- xml docs : http://golangserver.com/docs/ -->
+	<deploy>webapp</deploy>
+	<port>5070</port>
+	<not_found>/your-404-page</not_found>
+	<error>/your-500-page</error>
+
+	<output>application.go</output>
+	<domain></domain><!-- Cookie domain -->
+	<main>	
+		
+
+	</main>
+
+
+	<key>a very very very very secret key</key>
+	
+	<header>
+		<struct name="Choice">
+			Text string
+			Interests []string
+			Weight,Index int 
+		</struct>
+
+		<struct name="Question">
+		 	Text string
+		 	Choices []Choice
+		 	Index int
+		</struct>
+
+		<struct name="Group">
+		 	Text string
+		 	Questions []Question
+		 	Resume string
+		</struct>
+
+		<struct name="Progress">
+		 	Text string
+		 	Score float64
+		</struct>
+
+	</header>
+	<methods>
+
+		<method name="ExtractTraits" var="" return="map[string]int">
+			
+			var result = make(map[string]int)
+
+			var groups = GetGroups()
+
+			for _,g := range groups {
+
+				for _,q := range g.Questions {
+
+					for _, c := range q.Choices {
+
+						for _, s := range c.Interests {
+
+							_, ok := result[s]
+
+							if !ok {
+								result[s] = 0
+							}
+						}
+
+					}
+
+				}
+			}
+
+			return result
+
+		</method>
+
+
+
+		<method name="GetProgress" var="" return="[]Progress">
+			
+			var ps []Progress
+			var r = args[0].(*http.Request)
+			query := r.URL.Query()
+			groups := GetGroups()
+			traits := ExtractTraits()
+
+			for _,g := range groups {
+
+				for _, q := range g.Questions {
+
+					
+
+					i,err := strconv.Atoi(
+						query.Get(strconv.Itoa(q.Index)),
+					)
+
+					if err != nil {
+						fmt.Println(err)
+						continue
+					}
+
+					c := q.Choices[i]
+
+					
+
+					for _, interest := range c.Interests {
+						traits[interest] += c.Weight
+					}
+
+				}
+			}
+
+			total := GetTotal(traits)
+
+			for k, v := range traits {
+			    
+			    p := Progress{
+			    	Text : k,
+			    	Score : ( float64(v)/float64(total) ) * 100,
+			    }
+
+			    ps = append(ps, p)
+			}
+
+			fmt.Println("R",  ps, traits, total)
+
+			return ps
+		</method>
+		<method name="GetGroups" var="" return="[]Group">
+			
+			var groups []Group
+			var count = 0
+
+			for _,g := range globals.Groups {
+
+				for iQ, q := range g.Questions {
+
+					count++
+
+					g.Questions[iQ].Index = count
+
+					for iC,_ := range q.Choices {
+						g.Questions[iQ].Choices[iC].Index = iC
+					}
+				}
+
+				groups = append(groups, g)
+
+			}
+
+			return groups
+		</method>
+	</methods>
+
+	<templates>
+		<template name="hGroup" tmpl="group" struct="Group" /> 
+		<template name="hQuestion" tmpl="question" struct="Question" /> 
+		<template name="hProgress" tmpl="progress" struct="Progress" /> 
+	</templates>
+	<endpoints>
+  
+	</endpoints>
+</gos>
